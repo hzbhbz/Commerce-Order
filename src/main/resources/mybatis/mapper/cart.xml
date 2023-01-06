@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.digital.sql.mapper.CartMapper">
+
+	<!-- 고객 이름으로 장바구니 목록 조회 -->
+	<select id="getCart" resultType="com.digital.sql.vo.CartVO">
+		select c.cartid, c.productid, c.quantity
+		from cart c join partycart pc on c.cartid = pc.cartid
+		where pc.personid = #{personId}
+	</select>
+	
+	<select id="getCartById" resultType="com.digital.sql.vo.CartVO">
+		select c.cartid, c.productid, c.quantity
+		from cart c join partycart pc on c.cartid = pc.cartid
+					join partyorder po on pc.cartid = po.cartid
+		where c.cartid = #{cartId}
+	</select>
+	
+	<insert id="setCart" parameterType="com.digital.sql.vo.CartVO">
+		insert into cart(cartid, productid, quantity) values(#{cartId}, #{productId}, #{quantity})
+	</insert>
+
+	<insert id="setPartyCart" parameterType="com.digital.sql.vo.PartyCartVO">
+		insert into partycart(cartid, personid) values(#{cartId}, #{personId})
+	</insert>
+</mapper>

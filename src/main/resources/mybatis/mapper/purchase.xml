@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.digital.sql.mapper.PurchaseMapper">
+ 	
+  	<select id="getPurchase" resultType="com.digital.sql.vo.PurchaseVO">
+ 		select p.orderid
+ 		from purchase p join partyorder po on p.orderid=po.orderid
+ 		where p.orderid=#{orderId}
+ 	</select> 
+ 	
+ 	<insert id="setPurchase" parameterType="com.digital.sql.vo.PurchaseVO">
+		insert into purchase(orderid) values(#{orderId})
+	</insert>
+</mapper>

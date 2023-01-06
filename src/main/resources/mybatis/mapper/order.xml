@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.digital.sql.mapper.OrderMapper">
+
+	<resultMap id="orderMap" type="com.digital.sql.vo.OrderVO">
+		<result property="orderId" column="orderid"/>
+		<result property="personId" column="personid"/>
+		<result property="phoneId" column="phoneid"/>
+		<result property="addressId" column="addressid"/>
+		<collection property="cartList" ofType="com.digital.sql.vo.CartVO">
+			<result property="cartId" column="cartid"/>
+			<result property="productId" column="productid"/>
+			<result property="quantity" column="quantity"/>
+		</collection>
+	</resultMap>
+
+ 	<select id="getOrder" resultMap="orderMap">
+ 		select o.orderid, o.personid, o.phoneid, o.addressid, 
+ 			   c.cartid, c.productid, c.quantity
+ 		from ordersheet o join partyorder po on o.orderid=po.orderid
+ 						  join address a on o.addressid=a.addressid
+ 						  join phone ph on o.phoneid=ph.phoneid
+ 						  join cart c on c.cartid=po.cartid
+ 		where o.personid=#{personId}
+ 	</select>
+ 	
+ 	<select id="getPartyOrderById" resultType="com.digital.sql.vo.PartyOrderVO">
+ 		select po.orderid, po.cartid
+ 		from partyorder po join cart c on po.cartid=c.cartid
+ 		where po.orderid=#{orderId}
+ 	</select>
+ 
+ 	<insert id="setOrder" parameterType="com.digital.sql.vo.OrderVO">
+ 		insert into ordersheet(orderid, personid, phoneid, addressid) values(#{orderId}, #{personId}, #{phoneId}, #{addressId})
+ 	</insert>
+ 
+	<insert id="setPartyOrder" parameterType="com.digital.sql.vo.PartyOrderVO">
+		insert into partyorder(orderid, cartid) values(#{orderId}, #{cartId})
+	</insert>
+	
+</mapper>
