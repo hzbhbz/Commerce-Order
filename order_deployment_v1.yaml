@@ -25,9 +25,9 @@ spec:
         version: v1
     spec:
       containers:
-      - image: 192.168.100.12/bb-edu/commerce-order:v1
+      - image: 192.168.100.12/bb-edu/commerce-order:1
         imagePullPolicy: Always
-        name: order-cotainer
+        name: order-container
       dnsPolicy: ClusterFirst
       imagePullSecrets:
       - name: commerce-cocktail-t8ceb0dry5v7
