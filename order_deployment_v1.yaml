@@ -21,11 +21,11 @@ spec:
       annotations:
         sidecar.istio.io/inject: "true"
       labels:
-        app: commerce-auth
+        app: commerce-order
         version: v1
     spec:
       containers:
-      - image: 192.168.100.12/bb-edu/commerce-order:v1.0.1
+      - image: 192.168.100.12/bb-edu/commerce-order:v1
         imagePullPolicy: Always
         name: order-cotainer
       dnsPolicy: ClusterFirst
