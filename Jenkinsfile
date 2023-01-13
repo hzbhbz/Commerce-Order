@@ -46,7 +46,7 @@ pipeline {
       steps {
         script {
           echo "Deploy App START"
-          sh "/usr/local/bin/kubectl --kubeconfig=/home/jenkins/acloud-client.conf apply -f auth_deployment_v1.yaml"
+          sh "/usr/local/bin/kubectl --kubeconfig=/home/jenkins/acloud-client.conf apply -f order_deployment_v1.yaml"
           sh "/usr/local/bin/kubectl --kubeconfig=/home/jenkins/acloud-client.conf set image deployments/commerce-order order-cotainer=192.168.100.12/bb-edu/commerce-order:v1.0.1-$BUILD_NUMBER -n bb-edu"
           echo "Deploy App END"
         }
